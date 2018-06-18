@@ -3,80 +3,159 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <title>PerpetualCalendar</title>
+        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment14" type="text/css"/>
         <style type="text/css">
             * {
                 margin: 0;
                 padding: 0;
+
                 box-sizing: border-box;
+                background-color: #FFF9E4;
             }
             body {
                 font-family: sans-serif;
             }
             #container {
                 perspective: 800px;
-                margin-top: 20px;
-                perspective-origin: center 44px;
+
+                perspective-origin: center 114px;
                 overflow: hidden;
+
             }
             #page-group {
-                width: 400px;
+                width: 500px;
                 height: 380px;
-                margin: 24px auto;
-                padding: 20px;
+                margin: 20px auto;
+
                 position: relative;
                 transform-style: preserve-3d;       
             }
-            .page {
+            .pageout {
                 width: 380px;
                 height: 360px;
                 color: #fff;
-                background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+                background-color: #FF7559;
+                background-size: 380px 360px;
+                border-radius: 70px;
+                background-repeat: no-repeat;
+                text-align:center;
 
-                border-radius: 20px;
-
-                text-align: center;
-                padding-top: 50px;
-                font-size: 80px;
-                line-height: 100px; 
+                padding-top:24px;
+                font-size: 70px;
+                color:#444444;
+                line-height: 30px; 
                 position: absolute;
+                font-family: 'Avenir';
+            }
+            .pagein {
+                margin-left: 33px;
+         
+                width: 315px;
+                height: 235px;
+                background-color: white;
+                border-bottom-left-radius: 45px;
+                border-bottom-right-radius: 45px;
+                position: absolute;
+                color: #333333;
+                transform-origin: top;
+                transition: transform 0.4s linear;
             }
             #btn-group {
                 width: 50%;
-                margin: 20px auto;
-                text-align: center;
-                padding-left: 20px;
-
+                margin-left:465px;
+                margin-top: 20px;
                 line-height: 2.5;
+                font-family: 'Avenir';
+                font-weight: 400;
 
             }
             .btn {
-                width: 96px;
-                height: 32px;
-                line-height: 32px;
-                border: none;
+                width: 60px;
+                height: 44px;
+                line-height: 30px;
+                margin-bottom: 20px;
+                border-width: 0px;
+                border-color: #FF7559;
+                font-size: 24px;
                 cursor: pointer;
-                color: #fff;
-                background-color: #f69;
-                border-radius: 4px;
+                color: #444444;
+                background: #FF7559;
+                border-radius: 20px;
                 outline: none;
+
             }
             .btn:hover {
-                background-color: #f39;
+                background: #FF4C1C;
+            }
+            .window {
+                text-align: center;
+                margin:0px auto;
+                color: #444444;
+                background:transparent;
+            }
+            #MonthWindow {
+                height: 70px;
+                padding-top: 10px;
+                width:200px;
+                color:white;
+                font-weight: 400;
+            }
+            #YearWindow{
+                height: 30px;
+                margin-left: 15px;
+                padding-top:10px;
+                font-size:30px;
+                text-align: left;
+
+                position: absolute;
+            }
+            #WeekWindow{
+                padding-top:10px;
+                margin-right: 15px;
+                font-size:30px;
+                text-align: right;
+                text-indent: 10px;
+
+                color: #FF7559;
+                position: relative;
+            }
+
+            #DayWindow {
+                padding-top: 80px;
+                width:200px;
+                font-size: 150px;
+                font-family:  'Courier New', Courier, monospace;
+                font-weight:100;
+                letter-spacing: -14px;
+            }
+            #HolidayWindow{
+                padding-top: 50px;
+                width:200px;
+                font-size: 20px;
+            }
+            .sidenav {
+                height: 100%; /* Full-height: remove this if you want "auto" height */
+                width: 300px; /* Set the width of the sidebar */
+                position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+                z-index: 1; /* Stay on top */
+                top: 0; /* Stay at the top */
+                right: 170px;
+                background-color: white; /* Black */
+                overflow-x: hidden; /* Disable horizontal scroll */
+                padding-top: 50px;
             }
             #page3 {
+                z-index: 1;
                 transform: rotateX(0deg);
-                transform-origin: top;
-                transition: transform 0.3s linear;
             }
             #page1, #page2 {
-                transform: rotateX(90deg);
-                transform-origin: top;
-                transition: transform 0.3s linear;
+                transform: rotateX(90.0deg);
+                visibility: hidden;
             }
             #page4, #page5 {
-                transform: rotateX(-90deg); 
-                transform-origin: top;
-                transition: transform 0.3s linear;
+                transform: rotateX(-20deg); 
+                visibility: hidden;
             }
             .forward {
                 transform: rotateX(-90deg);
@@ -88,28 +167,36 @@
     </head>
     <body>
         <div id="btn-group">
-            &#160<button id="preYear" class="btn"> &#8592</button>&#160&#160&#160&#160
-            Year &#160&#160&#160&#160   
+            <button id="preYear" class="btn"> &#8592</button>
+            &#160&#160&#160&#160Year &#160&#160&#160&#160   
             <button id="nextYear" class="btn">&#8594</button>
             <br>
-            &#160<button id="preMonth" class="btn"> &#8592</button>&#160&#160&#160  
-            Month&#160&#160&#160
+            <button id="preMonth" class="btn"> &#8592</button>
+            &#160&#160&#160Month&#160&#160&#160
             <button id="nextMonth" class="btn">&#8594</button>
-            <br>    
-            <button id="preDay" class="btn"> &#8592</button>&#160&#160&#160&#160&#160
-            Day&#160&#160&#160&#160
+            <br>
+            <button id="preDay" class="btn"> &#8592</button>
+            &#160&#160&#160&#160&#160Day&#160&#160&#160&#160&#160
             <button id="nextDay" class="btn">&#8594</button>
         </div>
         <div id="container">
             <div id="page-group">
-                <div class="page" id="page1"></div>
-                <div class="page" id="page2"></div>
-                <div class="page" id="page3">2018 <br>Jun 15</div>
-                <div class="page" id="page4"></div>
-                <div class="page" id="page5"></div>
+
+                <div class="pageout">
+                    <div class="window" id="MonthWindow">JUN</div>
+                    <div class="pagein" id=page1></div>
+                    <div class="pagein" id=page2></div>
+                    <div class="pagein" id=page3>
+                        <div class="window" id="YearWindow" >2018</div>
+                        <div class="window" id="WeekWindow" >SAT</div>
+                        <div class="window" id="DayWindow">16</div>
+                        <div class="window" id="HolidayWindow">&#160</div>
+                    </div>
+                    <div class="pagein" id=page4></div>
+                    <div class="pagein" id=page5></div>
+                </div>
             </div>
-        </div>
-        
+
 
         <script>
             var preYearButton = document.getElementById("preYear"),
@@ -122,10 +209,262 @@
                 currentIndex = 3,
                 currentYear=2018,
                 currentMonth=6,
-                currentDay=15,
-                month = ["Jan", "Feb", "Mar", "Apr", "May","Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                currentDay=16,
+                currentWeek=6,
+                monthList = ["JAN", "FEB", "MAR", "APR", "MAY","JUN","JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+                weekList = ["MON","TUE","WED","THU","FRI","SAT","SUN"],
                 M31day =[1,3,5,7,8,10,12],
                 M30day =[4,6,9,11]
+
+            
+            preDayButton.addEventListener("click", function() {
+                Year=currentYear;
+                Month=currentMonth;
+                Day=currentDay-1;
+                
+                var x = LeapYearOrNot(Year);
+                if (Day == 0) {
+                    Month=currentMonth-1;
+                    if (Month == 0){
+                        Day=31;
+                        Month=12;
+                        Year= currentYear-1;
+                        x = LeapYearOrNot(Year);
+                    } else if (M31day.includes(Month)){
+                        Day =31;
+                    } else if (M30day.includes(Month)){
+                        Day = 30;
+                    } else {
+                        
+                        if (x) {
+                            Day= 29;
+                        } else {
+                            Day=28;
+                        }
+                    }
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+
+                var ins = getPreIndex(currentIndex);
+                preIndex = ins[0];
+                flipIndex = ins[1];
+                var nex =getNextIndex(currentIndex)
+                nextIndex = nex[0]
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+preIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
+                document.getElementById("page"+nextIndex).style.zIndex = "0";
+                document.getElementById("page"+currentIndex).style.zIndex = "1";
+                document.getElementById("page"+preIndex).style.zIndex = "2";
+                prePage();
+                if (currentIndex == 1){
+                    currentIndex = 5;
+                } else {
+                    currentIndex -= 1;
+                }
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+
+            preMonthButton.addEventListener("click", function() {
+                Year=currentYear;
+                Month=currentMonth-1;
+                Day=currentDay;
+                var x = LeapYearOrNot(Year);
+                if (Month==0) {
+                    Year -=1;
+                    x = LeapYearOrNot(Year);
+                    Month = 12;
+                } else if (Month == 2 ){
+                    if (x && Day > 29) {
+                        Day = 29;
+                    } else if (!x && Day > 28) {
+                        Day = 28;
+                    }
+                } else if (M30day.includes(Month) && Day==31){
+                    Day = 30;
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+currentIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+
+             preYearButton.addEventListener("click", function() {
+                Year=currentYear-1;
+                Month=currentMonth;
+                Day=currentDay;
+                var x = LeapYearOrNot(Year);
+                if (!x && Month==2 && Day == 29) {
+                    Day=28;
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+currentIndex).innerHTML = str;
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+
+            nextDayButton.addEventListener("click", function() {
+                Year=currentYear;
+                Month=currentMonth;
+                Day=currentDay+1;
+                Week = currentWeek + 1;
+                if (Week == 8) {
+                    Week = 1;
+                }
+                var x = LeapYearOrNot(Year);
+                if (Day==32 && Month ==12) {
+                    Year +=1;
+                    x = LeapYearOrNot(Year);
+                    Month =1 ;
+                    Day = 1;
+                } else if (Day==29 && Month==2 && x==false) {
+                    Month+=1;
+                    Day = 1;
+                } else if (Day==30 && Month==2 && x ==true) {
+                    Month +=1;
+                    Day = 1
+                } else if (Day == 31 && M30day.includes(Month)) {
+                    Month +=1;
+                    Day = 1
+                } else if (Day == 32 && M31day.includes(Month)) {
+                    Month +=1;
+                    Day = 1
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+                var ins = getNextIndex(currentIndex);
+                nextIndex = ins[0];
+                flipIndex = ins[1];
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+nextIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = ""+monthList[Month-1];
+                document.getElementById("page"+currentIndex).style.zIndex = "2";
+                document.getElementById("page"+nextIndex).style.zIndex = "1";
+                nextPage();
+       
+                if (currentIndex == 5){
+                    currentIndex = 1;
+                } else {
+                    currentIndex += 1;
+                }
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+
+
+            nextMonthButton.addEventListener("click", function() {
+                Year=currentYear;
+                Month=currentMonth+1;
+                Day=currentDay;
+                var x = LeapYearOrNot(Year);
+                if (Month==13) {
+                    Year +=1;
+                    x = LeapYearOrNot(Year);
+                    Month = 1;
+                } else if (Month == 2 ){
+                    if (x && Day > 29) {
+                        Day = 29;
+                    } else if (!x && Day > 28) {
+                        Day = 28;
+                    }
+                } else if (M30day.includes(Month) && Day==31){
+                    Day = 30;
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+currentIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+
+            nextYearButton.addEventListener("click", function() {
+                Year=currentYear+1;
+                Month=currentMonth;
+                Day=currentDay;
+                var x = LeapYearOrNot(Year);
+                if (!x && Month==2 && Day == 29) {
+                    Day=28;
+                }
+                var Week = caculateWeek(Year,Month,Day);
+                Holiday="";
+                if (x){
+                    leapText = '<div class="window" id="YearWindow" style="color:#FF7559;">';
+                } else {
+                    leapText = '<div class="window" id="YearWindow">';
+                }
+
+                str=leapText + Year 
+                + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
+                '</div><div class="window" id="DayWindow">' + Day + 
+                '</div><div class="window" id="HolidayWindow">' + Holiday +
+                '</div>';
+                document.getElementById("page"+currentIndex).innerHTML = str;
+                currentYear=Year;
+                currentMonth=Month;
+                currentDay=Day;
+            }, false);
+            
+
 
             function LeapYearOrNot(Year) {
                 if(Year%4==0){
@@ -176,217 +515,44 @@
                 return [nextIndex, flipIndex];
             }
             function prePage() {
-                document.getElementById("page" + preIndex).style.backgroundImage = "linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)";
-                document.getElementById("page" + preIndex).style.color = "white";
-                document.getElementById("page" + flipIndex).style.backgroundImage = "none";
-                document.getElementById("page" + flipIndex).style.color = "rgba(255, 255, 255, 0)";
-                document.getElementById("page" + currentIndex).style.transform = "rotateX(-90deg)";
-                document.getElementById("page" + preIndex).style.transform = "rotateX(0deg)";
+                document.getElementById("page" + flipIndex).style.visibility = "hidden";
                 document.getElementById("page" + flipIndex).style.transform = "rotateX(90deg)";
+                document.getElementById("page" + preIndex).style.visibility = "visible";
+                document.getElementById("page" + preIndex).style.transform = "rotateX(0deg)";
+                
             }
             function nextPage() {
-                document.getElementById("page" + nextIndex).style.backgroundImage = "linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)";
-                document.getElementById("page" + nextIndex).style.color = "white";
-                document.getElementById("page" + flipIndex).style.backgroundImage = "none";
-                document.getElementById("page" + flipIndex).style.color = "rgba(255, 255, 255, 0)";
+                document.getElementById("page" + nextIndex).style.visibility = "visible";
+                document.getElementById("page" + flipIndex).style.visibility = "hidden";
                 document.getElementById("page" + currentIndex).style.transform = "rotateX(90deg)";
                 document.getElementById("page" + nextIndex).style.transform = "rotateX(0deg)";
-                document.getElementById("page" + flipIndex).style.transform = "rotateX(-90deg)";
+                document.getElementById("page" + flipIndex).style.transform = "rotateX(-20deg)";
+            }
+            function caculateWeek(year,month,day){
+                if (month==1){
+                    month=13;
+                    year -=1;
+                } else if (month==2) {
+                    month=14;
+                    year-=1;
+                }
+                C = Math.floor(year/100)+1;
+                y = year%100;
+                W = Math.floor(C/4) - (2 * C) + y + Math.floor(y/4) + Math.floor(13 * (month+1)/5) + day -1;
+                ans = W % 7;
+                if (ans==0) {
+                    ans=7;
+                } else if (ans<0){
+                    ans = 7+ans;
+                }
+                return ans;
             }
 
 
-            preDayButton.addEventListener("click", function() {
-                Year=currentYear;
-                Month=currentMonth;
-                Day=currentDay-1;
-                if (Day == 0) {
-                    Month=currentMonth-1;
-                    if (Month == 0){
-                        Day=31;
-                        Month=12;
-                        Year= currentYear-1;
-                    } else if (M31day.includes(Month)){
-                        Day =31;
-                    } else if (M30day.includes(Month)){
-                        Day = 30;
-                    } else {
-                        var x = LeapYearOrNot(Year);
-                        if (x) {
-                            Day= 29;
-                        } else {
-                            Day=28;
-                        }
-                    }
-                }
-                var ins = getPreIndex(currentIndex);
-                preIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" + preIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                prePage();
-                if (currentIndex == 1){
-                    currentIndex = 5;
-                } else {
-                    currentIndex -= 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-            }, false);
-
-            preMonthButton.addEventListener("click", function() {
-                Year=currentYear;
-                Month=currentMonth-1;
-                Day=currentDay;
-                if (Month==0) {
-                    Year -=1;
-                    Month = 12;
-                } else if (Month == 2 ){
-                    var x = LeapYearOrNot(Year);
-                    if (x && Day > 29) {
-                        Day = 29;
-                    } else if (!x && Day > 28) {
-                        Day = 28;
-                    }
-                } else if (M30day.includes(Month) && Day==31){
-                    Day = 30;
-                }
-                
-                var ins = getPreIndex(currentIndex);
-                preIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" + preIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                prePage();
-                if (currentIndex == 1){
-                    currentIndex = 5;
-                } else {
-                    currentIndex -= 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-            }, false);
-
-            preYearButton.addEventListener("click", function() {
-                Year=currentYear-1;
-                Month=currentMonth;
-                Day=currentDay;
-                var x = LeapYearOrNot(Year);
-                if (!x && Month==2 && Day == 29) {
-                    Day=28;
-                }
-                
-                var ins = getPreIndex(currentIndex);
-                preIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" + preIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                prePage();
-                if (currentIndex == 1){
-                    currentIndex = 5;
-                } else {
-                    currentIndex -= 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-            }, false);
 
 
 
-            nextDayButton.addEventListener("click", function() {
-                Year=currentYear;
-                Month=currentMonth;
-                Day=currentDay+1;
-                var x = LeapYearOrNot(Year);
-                if (Day==32 && Month ==12) {
-                    Year +=1;
-                    Month =1 ;
-                    Day = 1;
-                } else if (Day==29 && Month==2 && x==false) {
-                    Month+=1;
-                    Day = 1;
-                } else if (Day==30 && Month==2 && x ==true) {
-                    Month +=1;
-                    Day = 1
-                } else if (Day == 31 && M30day.includes(Month)) {
-                    Month +=1;
-                    Day = 1
-                } else if (Day == 32 && M31day.includes(Month)) {
-                    Month +=1;
-                    Day = 1
-                }
-
-                var ins = getNextIndex(currentIndex);
-                nextIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" +nextIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                nextPage();
-
-                if (currentIndex == 5){
-                    currentIndex = 1;
-                } else {
-                    currentIndex += 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-
-            }, false);
-
-            nextMonthButton.addEventListener("click", function() {
-                Year=currentYear;
-                Month=currentMonth+1;
-                Day=currentDay;
-                if (Month==13) {
-                    Year +=1;
-                    Month = 1;
-                } else if (Month == 2 ){
-                    var x = LeapYearOrNot(Year);
-                    if (x && Day > 29) {
-                        Day = 29;
-                    } else if (!x && Day > 28) {
-                        Day = 28;
-                    }
-                } else if (M30day.includes(Month) && Day==31){
-                    Day = 30;
-                }
-                var ins = getNextIndex(currentIndex);
-                nextIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" +nextIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                nextPage();
-
-                if (currentIndex == 5){
-                    currentIndex = 1;
-                } else {
-                    currentIndex += 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-            }, false);
-
-            nextYearButton.addEventListener("click", function() {
-                Year=currentYear+1;
-                Month=currentMonth;
-                Day=currentDay;
-                var x = LeapYearOrNot(Year);
-                if (!x && Month==2 && Day == 29) {
-                    Day=28;
-                }
-                var ins = getNextIndex(currentIndex);
-                NextIndex = ins[0];
-                flipIndex = ins[1];
-                document.getElementById("page" + nextIndex).innerHTML = Year+" <br>"+month[Month-1]+" "+ (Day);
-                nextPage();
-                if (currentIndex == 5){
-                    currentIndex = 1;
-                } else {
-                    currentIndex += 1;
-                }
-                currentYear=Year;
-                currentMonth=Month;
-                currentDay=Day;
-            }, false);
+           
         </script>
     </body>
 </html>
