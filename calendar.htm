@@ -7,7 +7,7 @@
         <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment14" type="text/css"/>
         <style type="text/css">
             * {
-                margin: 0;
+
                 padding: 0;
 
                 box-sizing: border-box;
@@ -15,18 +15,17 @@
             }
             body {
                 font-family: sans-serif;
+                margin-left: 100px;
             }
             #container {
                 perspective: 800px;
-
-                perspective-origin: center 114px;
-                overflow: hidden;
+                perspective-origin: 150px 94px;
 
             }
             #page-group {
                 width: 500px;
                 height: 380px;
-                margin: 20px auto;
+ 
 
                 position: relative;
                 transform-style: preserve-3d;       
@@ -39,7 +38,7 @@
                 background-size: 380px 360px;
                 border-radius: 70px;
                 background-repeat: no-repeat;
-                text-align:center;
+
 
                 padding-top:24px;
                 font-size: 70px;
@@ -63,7 +62,7 @@
             }
             #btn-group {
                 width: 50%;
-                margin-left:465px;
+                margin-left: 85px;
                 margin-top: 20px;
                 line-height: 2.5;
                 font-family: 'Avenir';
@@ -154,7 +153,7 @@
                 visibility: hidden;
             }
             #page4, #page5 {
-                transform: rotateX(-20deg); 
+                transform: rotateX(0deg); 
                 visibility: hidden;
             }
             .forward {
@@ -216,7 +215,6 @@
                 M31day =[1,3,5,7,8,10,12],
                 M30day =[4,6,9,11]
 
-            
             preDayButton.addEventListener("click", function() {
                 Year=currentYear;
                 Month=currentMonth;
@@ -235,7 +233,6 @@
                     } else if (M30day.includes(Month)){
                         Day = 30;
                     } else {
-                        
                         if (x) {
                             Day= 29;
                         } else {
@@ -254,19 +251,23 @@
                 var ins = getPreIndex(currentIndex);
                 preIndex = ins[0];
                 flipIndex = ins[1];
-                var nex =getNextIndex(currentIndex)
-                nextIndex = nex[0]
+                var nex =getNextIndex(currentIndex);
+                nextIndex = nex[0];
                 str=leapText + Year 
                 + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
                 '</div><div class="window" id="DayWindow">' + Day + 
                 '</div><div class="window" id="HolidayWindow">' + Holiday +
                 '</div>';
                 document.getElementById("page"+preIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = "";
                 document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
                 document.getElementById("page"+nextIndex).style.zIndex = "0";
                 document.getElementById("page"+currentIndex).style.zIndex = "1";
                 document.getElementById("page"+preIndex).style.zIndex = "2";
-                prePage();
+                document.getElementById("page" + flipIndex).style.visibility = "hidden";
+                document.getElementById("page" + flipIndex).style.transform = "rotateX(90deg)";
+                document.getElementById("page" + preIndex).style.visibility = "visible";
+                document.getElementById("page" + preIndex).style.transform = "rotateX(0deg)";
                 if (currentIndex == 1){
                     currentIndex = 5;
                 } else {
@@ -308,6 +309,7 @@
                 '</div><div class="window" id="HolidayWindow">' + Holiday +
                 '</div>';
                 document.getElementById("page"+currentIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = "";
                 document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
                 currentYear=Year;
                 currentMonth=Month;
@@ -377,25 +379,39 @@
                 var ins = getNextIndex(currentIndex);
                 nextIndex = ins[0];
                 flipIndex = ins[1];
+                var pre =getPreIndex(currentIndex);
+                preIndex = pre[0];
                 str=leapText + Year 
                 + '</div><div class="window" id="WeekWindow">' + weekList[Week-1] + 
                 '</div><div class="window" id="DayWindow">' + Day + 
                 '</div><div class="window" id="HolidayWindow">' + Holiday +
                 '</div>';
+
                 document.getElementById("page"+nextIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = "";
                 document.getElementById("MonthWindow").innerHTML = ""+monthList[Month-1];
+                document.getElementById("page"+preIndex).style.zIndex = "0";
                 document.getElementById("page"+currentIndex).style.zIndex = "2";
                 document.getElementById("page"+nextIndex).style.zIndex = "1";
-                nextPage();
+                document.getElementById("page" + nextIndex).style.visibility = "visible";
+                document.getElementById("page" + flipIndex).style.visibility = "hidden";
+                document.getElementById("page" + nextIndex).style.transform = "rotateX(0deg)";
+                document.getElementById("page" + currentIndex).style.transform = "rotateX(90deg)";
+                
+                document.getElementById("page" + flipIndex).style.transform = "rotateX(0deg)";
+
+
        
                 if (currentIndex == 5){
                     currentIndex = 1;
                 } else {
                     currentIndex += 1;
                 }
+
                 currentYear=Year;
                 currentMonth=Month;
                 currentDay=Day;
+
             }, false);
 
 
@@ -431,6 +447,7 @@
                 '</div><div class="window" id="HolidayWindow">' + Holiday +
                 '</div>';
                 document.getElementById("page"+currentIndex).innerHTML = str;
+                document.getElementById("MonthWindow").innerHTML = "";
                 document.getElementById("MonthWindow").innerHTML = monthList[Month-1];
                 currentYear=Year;
                 currentMonth=Month;
@@ -514,19 +531,21 @@
                 }
                 return [nextIndex, flipIndex];
             }
-            function prePage() {
-                document.getElementById("page" + flipIndex).style.visibility = "hidden";
-                document.getElementById("page" + flipIndex).style.transform = "rotateX(90deg)";
-                document.getElementById("page" + preIndex).style.visibility = "visible";
-                document.getElementById("page" + preIndex).style.transform = "rotateX(0deg)";
+            function prePage(currentI,preI,flipI) {
+                document.getElementById("page" + flipI).style.visibility = "hidden";
+                document.getElementById("page" + flipI).style.transform = "rotateX(90deg)";
+                document.getElementById("page" + preI).style.visibility = "visible";
+                document.getElementById("page" + preI).style.transform = "rotateX(0deg)";
+                document.getElementById("page" + currentI).style.transform = "rotateX(-20deg)";
                 
             }
-            function nextPage() {
-                document.getElementById("page" + nextIndex).style.visibility = "visible";
-                document.getElementById("page" + flipIndex).style.visibility = "hidden";
-                document.getElementById("page" + currentIndex).style.transform = "rotateX(90deg)";
-                document.getElementById("page" + nextIndex).style.transform = "rotateX(0deg)";
-                document.getElementById("page" + flipIndex).style.transform = "rotateX(-20deg)";
+            function nextPage(currentI,nextI,flipI) {
+                document.getElementById("page" + nextI).style.visibility = "visible";
+                document.getElementById("page" + flipI).style.visibility = "hidden";
+                document.getElementById("page" + nextI).style.transform = "rotateX(0deg)";
+                document.getElementById("page" + currentI).style.transform = "rotateX(90deg)";
+                
+                document.getElementById("page" + flipI).style.transform = "rotateX(-20deg)";
             }
             function caculateWeek(year,month,day){
                 if (month==1){
