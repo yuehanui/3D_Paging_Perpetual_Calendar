@@ -1,0 +1,212 @@
+* {
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+body {
+    font-family: sans-serif;
+    background-image: url(../wallpaper.jpg);
+    background-size: 280%;
+    background-repeat: no-repeat;
+}
+
+#container {
+    perspective: 800px;
+    perspective-origin: 200px 94px;
+}
+.frame{
+    margin-left: 100px;
+    margin-top: 30px;
+
+    height:600px;
+    width:400px;
+
+    z-index: 1;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(88,88,88,30%);
+    border-radius: 65px;
+    box-shadow: 2px 2px rgba(88,88,88,70%);
+
+
+
+}
+.frame::before {
+    background-image: url(../wallpaper.jpg);
+
+    background-position: center top;
+    background-size: 280%;
+    background-attachment: fixed;
+  
+    height:600px;
+    width:400px;
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -moz-filter: blur(20px);
+    -webkit-filter: blur(20px) brightness(90%);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+
+
+    border-radius: 65px;
+
+
+
+
+    
+
+
+
+
+
+}
+
+#page-group {
+    padding-left: 30px;
+
+
+    width: 400px;
+    height: 380px;
+    position: relative;
+    transform-style: preserve-3d;       
+}
+.pageout {
+    width: 340px;
+    height: 354px;
+    color: #fff;
+    background-color: #FF7559;
+    background-size: 380px 360px;
+    border-radius: 60px;
+    background-repeat: no-repeat;
+
+
+    padding-top:24px;
+    font-size: 70px;
+    color:#444444;
+    line-height: 30px; 
+    position: absolute;
+    font-family: 'Avenir';
+}
+.pagein {
+    margin-left: 20px;
+
+    width: 300px;
+    height: 240px;
+    background-color: white;
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+    position: absolute;
+    color: #333333;
+    transform-origin: top;
+    transition: transform 0.4s linear;
+
+}
+#btn-group {
+    padding-top: 20px;
+    padding-left: 30px;
+
+    width: 300px;
+    margin-left: 70px;
+   
+    line-height: 2.5;
+    font-family: 'Avenir';
+    font-weight: 400;
+
+}
+.btn {
+    width: 60px;
+    height: 44px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    border-width: 0px;
+    border-color: #FF7559;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444444;
+    background: #FF7559;
+    border-radius: 20px;
+    outline: none;
+
+}
+.btn:hover {
+    background: #FF4C1C;
+}
+.window {
+    text-align: center;
+    margin:0px auto;
+    color: #444444;
+    background:transparent;
+}
+#MonthWindow {
+    height: 70px;
+    padding-top: 10px;
+    width:200px;
+    color:white;
+    font-weight: 400;
+}
+#YearWindow{
+    height: 30px;
+    margin-left: 15px;
+    padding-top:10px;
+    font-size:30px;
+    text-align: left;
+
+    position: absolute;
+}
+#WeekWindow{
+    padding-top:10px;
+    margin-right: 15px;
+    font-size:30px;
+    text-align: right;
+    text-indent: 10px;
+
+    color: #FF7559;
+    position: relative;
+}
+
+#DayWindow {
+    padding-top: 80px;
+    width:200px;
+    font-size: 150px;
+    font-family:  'Courier New', Courier, monospace;
+    font-weight:100;
+    letter-spacing: -14px;
+}
+#HolidayWindow{
+    padding-top: 50px;
+    width:200px;
+    font-size: 20px;
+}
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 300px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 170px;
+    background-color: white; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 50px;
+}
+#page3 {
+    z-index: 1;
+    transform: rotateX(0deg);
+}
+#page1, #page2 {
+    transform: rotateX(90.0deg);
+    visibility: hidden;
+}
+#page4, #page5 {
+    transform: rotateX(0deg); 
+    visibility: hidden;
+}
+.forward {
+    transform: rotateX(-90deg);
+}
+.back {
+    transform: rotateX(90deg);
+}

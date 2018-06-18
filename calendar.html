@@ -3,196 +3,43 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.4">
         <title>PerpetualCalendar</title>
-        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/segment14" type="text/css"/>
-        <style type="text/css">
-            * {
-
-                padding: 0;
-
-                box-sizing: border-box;
-                background-color: #FFF9E4;
-            }
-            body {
-                font-family: sans-serif;
-                margin-left: 100px;
-            }
-            #container {
-                perspective: 800px;
-                perspective-origin: 150px 94px;
-
-            }
-            #page-group {
-                width: 500px;
-                height: 380px;
- 
-
-                position: relative;
-                transform-style: preserve-3d;       
-            }
-            .pageout {
-                width: 380px;
-                height: 360px;
-                color: #fff;
-                background-color: #FF7559;
-                background-size: 380px 360px;
-                border-radius: 70px;
-                background-repeat: no-repeat;
-
-
-                padding-top:24px;
-                font-size: 70px;
-                color:#444444;
-                line-height: 30px; 
-                position: absolute;
-                font-family: 'Avenir';
-            }
-            .pagein {
-                margin-left: 33px;
-         
-                width: 315px;
-                height: 235px;
-                background-color: white;
-                border-bottom-left-radius: 45px;
-                border-bottom-right-radius: 45px;
-                position: absolute;
-                color: #333333;
-                transform-origin: top;
-                transition: transform 0.4s linear;
-            }
-            #btn-group {
-                width: 50%;
-                margin-left: 85px;
-                margin-top: 20px;
-                line-height: 2.5;
-                font-family: 'Avenir';
-                font-weight: 400;
-
-            }
-            .btn {
-                width: 60px;
-                height: 44px;
-                line-height: 30px;
-                margin-bottom: 20px;
-                border-width: 0px;
-                border-color: #FF7559;
-                font-size: 24px;
-                cursor: pointer;
-                color: #444444;
-                background: #FF7559;
-                border-radius: 20px;
-                outline: none;
-
-            }
-            .btn:hover {
-                background: #FF4C1C;
-            }
-            .window {
-                text-align: center;
-                margin:0px auto;
-                color: #444444;
-                background:transparent;
-            }
-            #MonthWindow {
-                height: 70px;
-                padding-top: 10px;
-                width:200px;
-                color:white;
-                font-weight: 400;
-            }
-            #YearWindow{
-                height: 30px;
-                margin-left: 15px;
-                padding-top:10px;
-                font-size:30px;
-                text-align: left;
-
-                position: absolute;
-            }
-            #WeekWindow{
-                padding-top:10px;
-                margin-right: 15px;
-                font-size:30px;
-                text-align: right;
-                text-indent: 10px;
-
-                color: #FF7559;
-                position: relative;
-            }
-
-            #DayWindow {
-                padding-top: 80px;
-                width:200px;
-                font-size: 150px;
-                font-family:  'Courier New', Courier, monospace;
-                font-weight:100;
-                letter-spacing: -14px;
-            }
-            #HolidayWindow{
-                padding-top: 50px;
-                width:200px;
-                font-size: 20px;
-            }
-            .sidenav {
-                height: 100%; /* Full-height: remove this if you want "auto" height */
-                width: 300px; /* Set the width of the sidebar */
-                position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-                z-index: 1; /* Stay on top */
-                top: 0; /* Stay at the top */
-                right: 170px;
-                background-color: white; /* Black */
-                overflow-x: hidden; /* Disable horizontal scroll */
-                padding-top: 50px;
-            }
-            #page3 {
-                z-index: 1;
-                transform: rotateX(0deg);
-            }
-            #page1, #page2 {
-                transform: rotateX(90.0deg);
-                visibility: hidden;
-            }
-            #page4, #page5 {
-                transform: rotateX(0deg); 
-                visibility: hidden;
-            }
-            .forward {
-                transform: rotateX(-90deg);
-            }
-            .back {
-                transform: rotateX(90deg);
-            }
-        </style>
+        <link rel="stylesheet" media="screen and (min-device-width: 800px)" href="css/desk.css" />
+        <link rel='stylesheet' media='screen and (max-device-width: 800px)' href='css/mobile.css' />
+        
     </head>
     <body>
-        <div id="btn-group">
-            <button id="preYear" class="btn"> &#8592</button>
-            &#160&#160&#160&#160Year &#160&#160&#160&#160   
-            <button id="nextYear" class="btn">&#8594</button>
-            <br>
-            <button id="preMonth" class="btn"> &#8592</button>
-            &#160&#160&#160Month&#160&#160&#160
-            <button id="nextMonth" class="btn">&#8594</button>
-            <br>
-            <button id="preDay" class="btn"> &#8592</button>
-            &#160&#160&#160&#160&#160Day&#160&#160&#160&#160&#160
-            <button id="nextDay" class="btn">&#8594</button>
-        </div>
-        <div id="container">
-            <div id="page-group">
+        <div class='frame'>
+            <div id="btn-group">
+                <button id="preYear" class="btn"> &#8592</button>
+                &#160&#160&#160&#160Year &#160&#160&#160&#160   
+                <button id="nextYear" class="btn">&#8594</button>
+                <br>
+                <button id="preMonth" class="btn"> &#8592</button>
+                &#160&#160&#160Month&#160&#160&#160
+                <button id="nextMonth" class="btn">&#8594</button>
+                <br>
+                <button id="preDay" class="btn"> &#8592</button>
+                &#160&#160&#160&#160&#160Day&#160&#160&#160&#160&#160
+                <button id="nextDay" class="btn">&#8594</button>
+            </div>
+            <div id="container">
+                <div id="page-group">
 
-                <div class="pageout">
-                    <div class="window" id="MonthWindow">JUN</div>
-                    <div class="pagein" id=page1></div>
-                    <div class="pagein" id=page2></div>
-                    <div class="pagein" id=page3>
-                        <div class="window" id="YearWindow" >2018</div>
-                        <div class="window" id="WeekWindow" >SAT</div>
-                        <div class="window" id="DayWindow">16</div>
-                        <div class="window" id="HolidayWindow">&#160</div>
+                    <div class="pageout">
+                        <div class="window" id="MonthWindow">JUN</div>
+                        <div class="pagein" id=page1></div>
+                        <div class="pagein" id=page2></div>
+                        <div class="pagein" id=page3>
+                            <div class="window" id="YearWindow" >2018</div>
+                            <div class="window" id="WeekWindow" >SAT</div>
+                            <div class="window" id="DayWindow">16</div>
+                            <div class="window" id="HolidayWindow">&#160</div>
+                        </div>
+                        <div class="pagein" id=page4></div>
+                        <div class="pagein" id=page5></div>
                     </div>
-                    <div class="pagein" id=page4></div>
-                    <div class="pagein" id=page5></div>
                 </div>
             </div>
 
@@ -391,16 +238,14 @@
                 document.getElementById("MonthWindow").innerHTML = "";
                 document.getElementById("MonthWindow").innerHTML = ""+monthList[Month-1];
                 document.getElementById("page"+preIndex).style.zIndex = "0";
+                document.getElementById("page"+flipIndex).style.zIndex = "0";
                 document.getElementById("page"+currentIndex).style.zIndex = "2";
                 document.getElementById("page"+nextIndex).style.zIndex = "1";
                 document.getElementById("page" + nextIndex).style.visibility = "visible";
                 document.getElementById("page" + flipIndex).style.visibility = "hidden";
-                document.getElementById("page" + nextIndex).style.transform = "rotateX(0deg)";
+                document.getElementById("page" + nextIndex).style.transform = "rotateX(1deg)";
                 document.getElementById("page" + currentIndex).style.transform = "rotateX(90deg)";
-                
-                document.getElementById("page" + flipIndex).style.transform = "rotateX(0deg)";
-
-
+                document.getElementById("page" + flipIndex).style.transform = "rotateX(-1deg)";
        
                 if (currentIndex == 5){
                     currentIndex = 1;
@@ -531,22 +376,7 @@
                 }
                 return [nextIndex, flipIndex];
             }
-            function prePage(currentI,preI,flipI) {
-                document.getElementById("page" + flipI).style.visibility = "hidden";
-                document.getElementById("page" + flipI).style.transform = "rotateX(90deg)";
-                document.getElementById("page" + preI).style.visibility = "visible";
-                document.getElementById("page" + preI).style.transform = "rotateX(0deg)";
-                document.getElementById("page" + currentI).style.transform = "rotateX(-20deg)";
-                
-            }
-            function nextPage(currentI,nextI,flipI) {
-                document.getElementById("page" + nextI).style.visibility = "visible";
-                document.getElementById("page" + flipI).style.visibility = "hidden";
-                document.getElementById("page" + nextI).style.transform = "rotateX(0deg)";
-                document.getElementById("page" + currentI).style.transform = "rotateX(90deg)";
-                
-                document.getElementById("page" + flipI).style.transform = "rotateX(-20deg)";
-            }
+            
             function caculateWeek(year,month,day){
                 if (month==1){
                     month=13;
