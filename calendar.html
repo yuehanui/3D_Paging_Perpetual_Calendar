@@ -3,47 +3,48 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.4">
+        <meta name="viewport" content="width=device-width, initial-scale=0.7">
         <title>PerpetualCalendar</title>
         <link rel="stylesheet" media="screen and (min-device-width: 800px)" href="css/desk.css" />
         <link rel='stylesheet' media='screen and (max-device-width: 800px)' href='css/mobile.css' />
         
     </head>
     <body>
-        <div class='frame'>
-            <div id="btn-group">
-                <button id="preYear" class="btn"> &#8592</button>
-                &#160&#160&#160&#160Year &#160&#160&#160&#160   
-                <button id="nextYear" class="btn">&#8594</button>
-                <br>
-                <button id="preMonth" class="btn"> &#8592</button>
-                &#160&#160&#160Month&#160&#160&#160
-                <button id="nextMonth" class="btn">&#8594</button>
-                <br>
-                <button id="preDay" class="btn"> &#8592</button>
-                &#160&#160&#160&#160&#160Day&#160&#160&#160&#160&#160
-                <button id="nextDay" class="btn">&#8594</button>
-            </div>
-            <div id="container">
-                <div id="page-group">
+        <div align="center">
+            <div class='frame'>
+                <div style="overflow: relative;"><div class="frameblur"></div></div>
+                <div id="btn-group">
+                    <button id="preYear" class="btn"> &#8592</button>
+                    &#160&#160&#160&#160Year &#160&#160&#160&#160   
+                    <button id="nextYear" class="btn">&#8594</button>
+                    <br>
+                    <button id="preMonth" class="btn"> &#8592</button>
+                    &#160&#160&#160Month&#160&#160&#160
+                    <button id="nextMonth" class="btn">&#8594</button>
+                    <br>
+                    <button id="preDay" class="btn"> &#8592</button>
+                    &#160&#160&#160&#160&#160Day&#160&#160&#160&#160&#160
+                    <button id="nextDay" class="btn">&#8594</button>
+                </div>
 
-                    <div class="pageout">
-                        <div class="window" id="MonthWindow">JUN</div>
-                        <div class="pagein" id=page1></div>
-                        <div class="pagein" id=page2></div>
-                        <div class="pagein" id=page3>
-                            <div class="window" id="YearWindow" >2018</div>
-                            <div class="window" id="WeekWindow" >SAT</div>
-                            <div class="window" id="DayWindow">16</div>
-                            <div class="window" id="HolidayWindow">&#160</div>
+                <div id="container" >
+                    <div id="page-group">
+                        <div class="pageout">
+                            <div class="window" id="MonthWindow">JUN</div>
+                            <div class="pagein" id=page1></div>
+                            <div class="pagein" id=page2></div>
+                            <div class="pagein" id=page3>
+                                <div class="window" id="YearWindow" >2018</div>
+                                <div class="window" id="WeekWindow" >SAT</div>
+                                <div class="window" id="DayWindow">16</div>
+                                <div class="window" id="HolidayWindow">&#160</div>
+                            </div>
+                            <div class="pagein" id=page4></div>
+                            <div class="pagein" id=page5></div>
                         </div>
-                        <div class="pagein" id=page4></div>
-                        <div class="pagein" id=page5></div>
                     </div>
                 </div>
             </div>
-
-
         <script>
             var preYearButton = document.getElementById("preYear"),
                 nextYearButton = document.getElementById("nextYear"),
@@ -387,7 +388,7 @@
                 }
                 C = Math.floor(year/100)+1;
                 y = year%100;
-                W = Math.floor(C/4) - (2 * C) + y + Math.floor(y/4) + Math.floor(13 * (month+1)/5) + day -1;
+                W = Math.floor(C/4) - (2 * C) + y + Math.floor(y/4) + Math.floor(13 * (month+1)/5) + day +1;
                 ans = W % 7;
                 if (ans==0) {
                     ans=7;
