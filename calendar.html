@@ -5,15 +5,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=0.7">
         <title>PerpetualCalendar</title>
-        <link rel="stylesheet" media="screen and (min-device-width: 800px)" href="css/desk.css" />
+        <!-- desktop stylesheet-->
+        <link rel="stylesheet" media="screen and (min-device-width: 800px)" href="css/desk.css" /> 
+        <!-- mobile devices stylesheet-->
         <link rel='stylesheet' media='screen and (max-device-width: 800px)' href='css/mobile.css' />
         
     </head>
     <body>
         <div align="center">
             <div class='frame'>
-                <div style="overflow: relative;"><div class="frameblur"></div></div>
-                <div id="btn-group">
+                <div><div class="frameblur"></div></div>
+                <div id="btn-group">       <!-- area of buttons-->
                     <button id="preYear" class="btn"> &#8592</button>
                     &#160&#160&#160&#160Year &#160&#160&#160&#160   
                     <button id="nextYear" class="btn">&#8594</button>
@@ -28,7 +30,7 @@
                 </div>
 
                 <div id="container" >
-                    <div id="page-group">
+                    <div id="page-group">  <!-- area of calendar-->
                         <div class="pageout">
                             <div class="window" id="MonthWindow">JUN</div>
                             <div class="pagein" id=page1></div>
@@ -46,7 +48,7 @@
                 </div>
             </div>
         <script>
-            var preYearButton = document.getElementById("preYear"),
+            var preYearButton = document.getElementById("preYear"), //action of bottons
                 nextYearButton = document.getElementById("nextYear"),
                 preMonthButton = document.getElementById("preMonth"),   
                 nextMonthButton = document.getElementById("nextMonth"),
@@ -57,11 +59,11 @@
                 currentYear=2018,
                 currentMonth=6,
                 currentDay=16,
-                currentWeek=6,
+                currentWeek=6,   //values of default date
                 monthList = ["JAN", "FEB", "MAR", "APR", "MAY","JUN","JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
                 weekList = ["MON","TUE","WED","THU","FRI","SAT","SUN"],
-                M31day =[1,3,5,7,8,10,12],
-                M30day =[4,6,9,11]
+                M31day =[1,3,5,7,8,10,12], //months with 31 days
+                M30day =[4,6,9,11]         //months with 30 days
 
             preDayButton.addEventListener("click", function() {
                 Year=currentYear;
@@ -253,13 +255,10 @@
                 } else {
                     currentIndex += 1;
                 }
-
                 currentYear=Year;
                 currentMonth=Month;
                 currentDay=Day;
-
             }, false);
-
 
             nextMonthButton.addEventListener("click", function() {
                 Year=currentYear;
@@ -327,8 +326,8 @@
                 currentDay=Day;
             }, false);
             
-
-
+            // This function decide if the input year is a 
+            // leap year and return a boolean
             function LeapYearOrNot(Year) {
                 if(Year%4==0){
                     if(Year % 100 ==0){
@@ -344,6 +343,7 @@
                     return false;
                 } 
             }
+            // This is a helper function for fliping page effect.
             function getPreIndex(index) {
                 if (index==1) {
                     preIndex=5;
@@ -361,6 +361,7 @@
                 return [preIndex, flipIndex];
             }
 
+            // This is a helper function for fliping page effect.
             function getNextIndex(index) {
                 if (index==1) {
                     nextIndex=2;
@@ -377,7 +378,7 @@
                 }
                 return [nextIndex, flipIndex];
             }
-            
+            // This function takes a date and return what day of the week is the day.
             function caculateWeek(year,month,day){
                 if (month==1){
                     month=13;
@@ -397,12 +398,6 @@
                 }
                 return ans;
             }
-
-
-
-
-
-           
         </script>
     </body>
 </html>
