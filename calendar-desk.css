@@ -4,8 +4,8 @@
 }
 body {
     font-family: sans-serif;
-    background-image: url(../wallpapermobile.png);
-    background-size: 155%;
+    background-image: url(wallpaper.jpg);
+    background-size: 100%;
     background-repeat: no-repeat;
 }
 .frame{
@@ -17,9 +17,9 @@ body {
     border-radius: 65px;
 }
 .frameblur {
-    background-image: url(../wallpapermobile.png);
+    background-image: url(wallpaper.jpg);
     background-position: center top;
-    background-size: 155%;
+    background-size: 100%;
     background-attachment: fixed;
     height:660px;
     width:460px;
@@ -27,7 +27,7 @@ body {
     content: '';
     z-index: -1;
     -moz-filter: blur(20px);
-    -webkit-filter: blur(2px) brightness(70%);
+    -webkit-filter: blur(20px) brightness(70%);
     -o-filter: blur(20px);
     -ms-filter: blur(20px);
     border-radius: 65px;
